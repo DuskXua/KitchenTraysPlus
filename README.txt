@@ -1,8 +1,8 @@
 KitchenTraysPlus
 
 Requires:
-KitchenLib
-ApplianceLib
+KitchenLib https://github.com/KitchenMods/KitchenLib
+ApplianceLib https://github.com/ZekNikZ/ApplianceLib
 
 
 
