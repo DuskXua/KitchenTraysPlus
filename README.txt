@@ -1,3 +1,11 @@
+KitchenTraysPlus
+
+Requires:
+KitchenLib
+ApplianceLib
+
+
+
 PlateUp! Modding Template
 
 Using this template:
