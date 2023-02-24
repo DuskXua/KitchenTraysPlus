@@ -30,7 +30,6 @@ namespace TraysPlus
 
         public override List<IApplianceProperty> Properties => new List<IApplianceProperty>(new IApplianceProperty[] {
         KitchenPropertiesUtils.GetCItemProvider(GDOUtils.GetCustomGameDataObject<ServingTray>().ID,1,1,false,false,false,false,false,true,false),
-        new CRestrictedReceiver{ApplianceKey = "ServingTrayStand"},
         new Kitchen.CItemHolder{}
         });
         

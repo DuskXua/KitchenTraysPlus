@@ -11,6 +11,7 @@ using KitchenLib.References;
 using Kitchen;
 using KitchenLib.Customs;
 using System.Collections.Generic;
+using System.Linq;
 
 // Namespace should have "Kitchen" in the beginning
 namespace KitchenTraysPlus
@@ -88,9 +89,9 @@ namespace KitchenTraysPlus
             // TODO: Uncomment the following if you have an asset bundle.
             // TODO: Also, make sure to set EnableAssetBundleDeploy to 'true' in your ModName.csproj
 
-            // LogInfo("Attempting to load asset bundle...");
-            // Bundle = mod.GetPacks<AssetBundleModPack>().SelectMany(e => e.AssetBundles).First();
-            // LogInfo("Done loading asset bundle.");
+            LogInfo("Attempting to load asset bundle...");
+            Bundle = mod.GetPacks<AssetBundleModPack>().SelectMany(e => e.AssetBundles).First();
+            LogInfo("Done loading asset bundle.");
 
             // Register custom GDOs
             AddGameData();
@@ -120,7 +121,6 @@ namespace KitchenTraysPlus
                     GameData.Main.Get<Item>(ItemReferences.PlateDirtywithfood)
                 };
 
-                RestrictedItemTransfers.AllowItem("ServingTrayStand", GDOUtils.GetCustomGameDataObject<ServingTray>().ID);
 
                 foreach (Item plate in plates)
                 {

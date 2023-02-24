@@ -401,3 +401,7 @@ FodyWeavers.xsd
 /WorkshopFolder/content/**/*.dll
 
 content/
+UnityProject/Assets/TraysPlus/New Material.mat
+UnityProject/UIElementsSchema/UnityEditor.PackageManager.UI.xsd
+UnityProject/UIElementsSchema/UIElements.xsd
+UnityProject/UIElementsSchema/UnityEditor.UIElements.Debugger.xsd
