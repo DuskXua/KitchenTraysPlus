@@ -1,3 +1,19 @@
+KitchenTraysPlus
+
+Requires:
+KitchenLib https://github.com/KitchenMods/KitchenLib
+ApplianceLib https://github.com/ZekNikZ/ApplianceLib
+
+Known Issues:
+When putting the Serving Tray down, it is possible to place it ontop of a valid dish.
+
+
+
+
+
+
+
+
 PlateUp! Modding Template
 
 Using this template:
