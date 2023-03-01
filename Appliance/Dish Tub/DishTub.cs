@@ -28,9 +28,7 @@ namespace TraysPlus
         {
             base.OnRegister(gameDataObject);
 
-            var materials = new Material[1];
-
-            materials[0] = MaterialUtils.GetExistingMaterial("Danger Hob");
+            var materials = new Material[] { MaterialUtils.GetExistingMaterial("Metal Very Dark")};
             MaterialUtils.ApplyMaterial(Prefab, "Cube", materials);
 
             FieldInfo storage = ReflectionUtils.GetField<ItemVariableStorageView>("Storage");

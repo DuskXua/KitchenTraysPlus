@@ -24,20 +24,13 @@ namespace KitchenTraysPlus
         // Mod Version must follow semver notation e.g. "1.2.3"
         public const string MOD_GUID = "Xua.PlateUp.TraysPlus";
         public const string MOD_NAME = "Trays Plus";
-        public const string MOD_VERSION = "0.1.0";
+        public const string MOD_VERSION = "0.2.0";
         public const string MOD_AUTHOR = "Dusk_Xua";
         public const string MOD_GAMEVERSION = ">=1.1.3";
         // Game version this mod is designed for in semver
         // e.g. ">=1.1.3" current and all future
         // e.g. ">=1.1.3 <=1.2.3" for all from/until
 
-        public static Dictionary<string, int> references => new Dictionary<string, int>();
-
-
-        public int ServingTrayStandID;
-        public int ServingTrayID;
-        public int DishTubStandID;
-        public int DishTubID;
 
         // Boolean constant whose value depends on whether you built with DEBUG or RELEASE mode, useful for testing
 #if DEBUG
@@ -54,7 +47,6 @@ namespace KitchenTraysPlus
         {
             LogWarning($"{MOD_GUID} v{MOD_VERSION} in use!");
 
-
         }
 
         private void AddGameData()
@@ -64,18 +56,14 @@ namespace KitchenTraysPlus
             ServingTray servingTray = AddGameDataObject<ServingTray>();
             DishTub dishTub = AddGameDataObject<DishTub>();
 
-
             ServingTrayStand servingTrayStand = AddGameDataObject<ServingTrayStand>();
             DishTubStand dishTubStand = AddGameDataObject<DishTubStand>();
 
-            ServingTrayID = servingTray.ID;
-            ServingTrayStandID = servingTrayStand.ID;
-            DishTubID = dishTub.ID;
-            DishTubStandID = dishTubStand.ID;
-
-
-            //servingTrayStand.Properties.Add(KitchenPropertiesUtils.GetCItemProvider(ServingTrayID, 1, 1, false, false, true, false, false, true, false));
-            //dishTubStand.Properties.Add(KitchenPropertiesUtils.GetCItemProvider(DishTubID, 1, 1, false, false, true, false, false, true, false));
+            RestrictedItemTransfers.AllowItem("DishTub", ItemReferences.Plate);
+            RestrictedItemTransfers.AllowItem("DishTub", ItemReferences.PlateDirty);
+            RestrictedItemTransfers.AllowItem("DishTub", ItemReferences.PlateDirtySoaked);
+            RestrictedItemTransfers.AllowItem("DishTub", ItemReferences.PlateDirtywithBone);
+            RestrictedItemTransfers.AllowItem("DishTub", ItemReferences.PlateDirtywithfood);
 
             LogInfo("Done loading game data.");
         }
@@ -86,9 +74,7 @@ namespace KitchenTraysPlus
 
         protected override void OnPostActivate(KitchenMods.Mod mod)
         {
-            // TODO: Uncomment the following if you have an asset bundle.
-            // TODO: Also, make sure to set EnableAssetBundleDeploy to 'true' in your ModName.csproj
-
+            // Load asset bundle
             LogInfo("Attempting to load asset bundle...");
             Bundle = mod.GetPacks<AssetBundleModPack>().SelectMany(e => e.AssetBundles).First();
             LogInfo("Done loading asset bundle.");
@@ -96,45 +82,41 @@ namespace KitchenTraysPlus
             // Register custom GDOs
             AddGameData();
 
-
             // Perform actions when game data is built
             Events.BuildGameDataEvent += delegate (object s, BuildGameDataEventArgs args)
             {
-                string menuItems = "Menu Items \n";
 
-                foreach(Dish dish in GameData.Main.Get<Dish>())
+                LogInfo("GameData Test");
+                LogInfo(GameData.Main);
+
+                LogInfo("GameData Test 1");
+
+                GameData.Main.Get<Item>();
+
+
+                LogInfo("Add Dishes");
+                // Add Dishes to Serving Tray Allow List
+                foreach (Dish dish in GameData.Main.Get<Dish>())
                 {
                     foreach(Dish.MenuItem item in dish.UnlocksMenuItems)
                     {
-                        menuItems += item.Item.name + "\n";
                         RestrictedItemTransfers.AllowItem("ServingTray", item.Item);
                     }
                 }
-                //LogInfo(menuItems);
 
-
-                Item[] plates = {
-                    GameData.Main.Get<Item>(ItemReferences.Plate),
-                    GameData.Main.Get<Item>(ItemReferences.PlateDirty),
-                    GameData.Main.Get<Item>(ItemReferences.PlateDirtySoaked),
-                    GameData.Main.Get<Item>(ItemReferences.PlateDirtywithBone),
-                    GameData.Main.Get<Item>(ItemReferences.PlateDirtywithfood)
-                };
-
-
-                foreach (Item plate in plates)
-                {
-                    RestrictedItemTransfers.AllowItem("DishTub", plate);
-                }
-
-
+                LogInfo("Get refs");
+                // Get Appliance Refs
                 Appliance trayStand = GameData.Main.Get<Appliance>(ApplianceReferences.TrayStand);
                 Appliance servingTrayStand = GDOUtils.GetCastedGDO<Appliance, ServingTrayStand>();
                 Appliance dishTubStand = GDOUtils.GetCastedGDO<Appliance, DishTubStand>();
 
+                LogInfo("Add Upgrades 1");
+                // Add Tray Stand Upgrades
                 trayStand.Upgrades.Add(servingTrayStand);
                 trayStand.Upgrades.Add(dishTubStand);
 
+                LogInfo("Add Upgrades 2");
+                // Add Dish Tub & Serving Tray Upgrades
                 dishTubStand.Upgrades.Add(servingTrayStand);
                 servingTrayStand.Upgrades.Add(dishTubStand);
             };
