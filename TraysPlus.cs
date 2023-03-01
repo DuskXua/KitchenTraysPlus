@@ -1,17 +1,15 @@
-﻿using KitchenLib;
+﻿using ApplianceLib.Api;
+using Kitchen;
+using KitchenData;
+using KitchenLib;
 using KitchenLib.Event;
+using KitchenLib.References;
 using KitchenLib.Utils;
 using KitchenMods;
-using System.Reflection;
-using UnityEngine;
-using KitchenData;
-using ApplianceLib.Api;
-using TraysPlus;
-using KitchenLib.References;
-using Kitchen;
-using KitchenLib.Customs;
-using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
+using TraysPlus;
+using UnityEngine;
 
 // Namespace should have "Kitchen" in the beginning
 namespace KitchenTraysPlus
@@ -46,18 +44,26 @@ namespace KitchenTraysPlus
         protected override void OnInitialise()
         {
             LogWarning($"{MOD_GUID} v{MOD_VERSION} in use!");
+            Appliance servingTrayStand = GDOUtils.GetCastedGDO<Appliance, ServingTrayStand>();
+            Appliance dishTubStand = GDOUtils.GetCastedGDO<Appliance, DishTubStand>();
+            Appliance trayStand = GDOUtils.GetExistingGDO(ApplianceReferences.TrayStand) as Appliance;
 
+            dishTubStand.Upgrades.Add(servingTrayStand);
+            servingTrayStand.Upgrades.Add(dishTubStand);
+
+            trayStand.Upgrades.Add(servingTrayStand);
+            trayStand.Upgrades.Add(dishTubStand);
         }
 
         private void AddGameData()
         {
             LogInfo("Attempting to register game data...");
 
-            ServingTray servingTray = AddGameDataObject<ServingTray>();
-            DishTub dishTub = AddGameDataObject<DishTub>();
+            AddGameDataObject<ServingTray>();
+            AddGameDataObject<DishTub>();
 
-            ServingTrayStand servingTrayStand = AddGameDataObject<ServingTrayStand>();
-            DishTubStand dishTubStand = AddGameDataObject<DishTubStand>();
+            AddGameDataObject<ServingTrayStand>();
+            AddGameDataObject<DishTubStand>();
 
             RestrictedItemTransfers.AllowItem("DishTub", ItemReferences.Plate);
             RestrictedItemTransfers.AllowItem("DishTub", ItemReferences.PlateDirty);
@@ -72,6 +78,7 @@ namespace KitchenTraysPlus
         {
         }
 
+        
         protected override void OnPostActivate(KitchenMods.Mod mod)
         {
             // Load asset bundle
@@ -85,40 +92,19 @@ namespace KitchenTraysPlus
             // Perform actions when game data is built
             Events.BuildGameDataEvent += delegate (object s, BuildGameDataEventArgs args)
             {
-
-                LogInfo("GameData Test");
-                LogInfo(GameData.Main);
-
-                LogInfo("GameData Test 1");
-
-                GameData.Main.Get<Item>();
-
-
-                LogInfo("Add Dishes");
-                // Add Dishes to Serving Tray Allow List
-                foreach (Dish dish in GameData.Main.Get<Dish>())
+                if (args.firstBuild)
                 {
-                    foreach(Dish.MenuItem item in dish.UnlocksMenuItems)
+                    LogInfo("Add Dishes");
+                    // Add Dishes to Serving Tray Allow List
+                    foreach (Dish dish in args.gamedata.Get<Dish>())
                     {
-                        RestrictedItemTransfers.AllowItem("ServingTray", item.Item);
+                        foreach(Dish.MenuItem item in dish.UnlocksMenuItems)
+                        {
+                            RestrictedItemTransfers.AllowItem("ServingTray", item.Item);
+                            //LogInfo(item.Item.name);
+                        }
                     }
                 }
-
-                LogInfo("Get refs");
-                // Get Appliance Refs
-                Appliance trayStand = GameData.Main.Get<Appliance>(ApplianceReferences.TrayStand);
-                Appliance servingTrayStand = GDOUtils.GetCastedGDO<Appliance, ServingTrayStand>();
-                Appliance dishTubStand = GDOUtils.GetCastedGDO<Appliance, DishTubStand>();
-
-                LogInfo("Add Upgrades 1");
-                // Add Tray Stand Upgrades
-                trayStand.Upgrades.Add(servingTrayStand);
-                trayStand.Upgrades.Add(dishTubStand);
-
-                LogInfo("Add Upgrades 2");
-                // Add Dish Tub & Serving Tray Upgrades
-                dishTubStand.Upgrades.Add(servingTrayStand);
-                servingTrayStand.Upgrades.Add(dishTubStand);
             };
         }
         #region Logging

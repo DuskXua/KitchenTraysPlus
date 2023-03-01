@@ -1,22 +1,18 @@
-﻿using ApplianceLib.Api;
+﻿using ApplianceLib.Api.Prefab;
 using ApplianceLib.Customs.GDO;
+using Kitchen;
 using KitchenData;
-using KitchenLib.Customs;
-using KitchenLib.References;
 using KitchenLib.Utils;
-using System;
+using KitchenTraysPlus;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace TraysPlus
 {
     internal class ServingTrayStand : ModAppliance
     {
-        public override int BaseGameDataObjectID => ApplianceReferences.TrayStand;
         public override string UniqueNameID => "ServingTrayStand";
+        public override GameObject Prefab => Mod.Bundle.LoadAsset<GameObject>("Serving_Tray_Counter");
         public override bool IsPurchasable => false;
         public override bool IsPurchasableAsUpgrade => true;
         public override List<Appliance.ApplianceProcesses> Processes => ((Appliance)GDOUtils.GetExistingGDO(KitchenLib.References.ApplianceReferences.Countertop)).Processes;
@@ -37,19 +33,22 @@ namespace TraysPlus
 
         protected override void SetupPrefab(GameObject prefab)
         {
-            Material[] materials = new Material[] { MaterialUtils.GetExistingMaterial("Wood 4 - Painted") };
-            MaterialUtils.ApplyMaterial(prefab, "Counter/Block/Counter2/Counter", materials);
-            MaterialUtils.ApplyMaterial(prefab, "Counter/Block/Counter2/Counter Doors", materials);
+            var materials = new Material[] { MaterialUtils.GetExistingMaterial("Danger Hob") };
+            MaterialUtils.ApplyMaterial(prefab, "HoldPoint/Serving_Tray/Cylinder", materials);
 
-            materials = new Material[] { MaterialUtils.GetExistingMaterial("Wood - Default") };
-            MaterialUtils.ApplyMaterial(prefab, "Counter/Block/Counter2/Counter Surface", materials);
-            MaterialUtils.ApplyMaterial(prefab, "Counter/Block/Counter2/Counter Top", materials);
+            PrefabBuilder.AttachCounter(prefab, CounterType.DoubleDoors);
 
-            materials = new Material[] { MaterialUtils.GetExistingMaterial("Knob") };
-            MaterialUtils.ApplyMaterial(prefab, "Counter/Block/Counter2/Handles", materials);
+            var holdTransform = GameObjectUtils.GetChildObject(prefab, "HoldPoint").transform;
+            var holdPoint = prefab.AddComponent<HoldPointContainer>();
+            holdPoint.HoldPoint = holdTransform;
 
+            var sourceView = prefab.AddComponent<LimitedItemSourceView>();
+            sourceView.HeldItemPosition = holdTransform;
 
-
+            ReflectionUtils.GetField<LimitedItemSourceView>("Items").SetValue(sourceView, new List<GameObject>()
+            {
+                GameObjectUtils.GetChildObject(prefab, "HoldPoint/Serving_Tray")
+            });
         }
     }
 }

@@ -5,7 +5,7 @@ KitchenLib https://github.com/KitchenMods/KitchenLib
 ApplianceLib https://github.com/ZekNikZ/ApplianceLib
 
 Known Issues:
-When putting the Serving Tray down, it is possible to place it ontop of a valid dish.
+It is possible to pick up plates from the dish tub with the tray stand, will look for a fix soon.
 
 
 

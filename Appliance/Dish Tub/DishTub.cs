@@ -4,12 +4,8 @@ using KitchenLib.Customs;
 using KitchenLib.References;
 using KitchenLib.Utils;
 using KitchenTraysPlus;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace TraysPlus
@@ -31,14 +27,16 @@ namespace TraysPlus
             var materials = new Material[] { MaterialUtils.GetExistingMaterial("Metal Very Dark")};
             MaterialUtils.ApplyMaterial(Prefab, "Cube", materials);
 
+            Mod.LogInfo("Tub:" + materials[0].color);
+
             FieldInfo storage = ReflectionUtils.GetField<ItemVariableStorageView>("Storage");
             List<GameObject> storages = new()
             {
-                Prefab.transform.Find("Storage 1").gameObject,
-                Prefab.transform.Find("Storage 2").gameObject,
-                Prefab.transform.Find("Storage 3").gameObject,
-                Prefab.transform.Find("Storage 4").gameObject,
-                Prefab.transform.Find("Storage 5").gameObject
+                GameObjectUtils.GetChildObject(Prefab, "Storage 1"),
+                GameObjectUtils.GetChildObject(Prefab, "Storage 2"),
+                GameObjectUtils.GetChildObject(Prefab, "Storage 3"),
+                GameObjectUtils.GetChildObject(Prefab, "Storage 4"),
+                GameObjectUtils.GetChildObject(Prefab, "Storage 5")
             };
 
             ItemVariableStorageView ivsv = Prefab.AddComponent<ItemVariableStorageView>();
