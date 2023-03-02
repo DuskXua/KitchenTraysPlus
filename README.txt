@@ -5,7 +5,7 @@ KitchenLib https://github.com/KitchenMods/KitchenLib
 ApplianceLib https://github.com/ZekNikZ/ApplianceLib
 
 Known Issues:
-It is possible to pick up plates from the dish tub with the tray stand, will look for a fix soon.
+None at the moment
 
 
 

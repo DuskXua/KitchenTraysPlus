@@ -14,10 +14,11 @@ namespace TraysPlus
 
         public override string UniqueNameID => "DishTubStand";
         public override GameObject Prefab => Mod.Bundle.LoadAsset<GameObject>("Dish_Tub_Counter");
+        public override RarityTier RarityTier => RarityTier.Rare;
         public override bool IsPurchasable => false;
         public override bool IsPurchasableAsUpgrade => true;
         public override List<Appliance.ApplianceProcesses> Processes => ((Appliance)GDOUtils.GetExistingGDO(KitchenLib.References.ApplianceReferences.Countertop)).Processes;
-
+        public override ShoppingTags ShoppingTags => ShoppingTags.FrontOfHouse | ShoppingTags.Misc;
         public override List<(Locale, ApplianceInfo)> InfoList => new()
         {
             (Locale.English, LocalisationUtils.CreateApplianceInfo(

@@ -1,6 +1,5 @@
 ﻿using ApplianceLib.Api;
 using Kitchen;
-using KitchenLib.Utils;
 using KitchenMods;
 using Unity.Collections;
 using Unity.Entities;
@@ -8,7 +7,7 @@ using UnityEngine;
 
 namespace TraysPlus
 {
-    
+
     [UpdateInGroup(typeof(ItemTransferEarlyPrune))]
     internal class IPruneByRestrictedTransfers : GenericSystemBase, IModSystem
     {
@@ -37,8 +36,6 @@ namespace TraysPlus
                 var entity = entities[i];
                 var proposal = itemTransferProposals[i];
 
-                //KitchenTraysPlus.Mod.LogInfo("Item: " + GDOUtils.GetExistingGDO(proposal.ItemData.ID).name + " - " + proposal.Source.ToString() + " => " + proposal.Destination.ToString());
-
                 if (proposal.Status == ItemTransferStatus.Pruned)
                 {
                     continue;
@@ -48,8 +45,6 @@ namespace TraysPlus
 
                 if (Require(proposal.Source, out CRestrictedToolStorage source))
                 {
-                    //KitchenTraysPlus.Mod.LogInfo("Source: Tried " + GDOUtils.GetExistingGDO(proposal.ItemData.ID).name + " => " + source.ItemKey);
-                    
                     string itemKey = source.ItemKey.ToString();
                     if (!RestrictedItemTransfers.IsAllowed(itemKey, proposal.ItemType))
                     {
@@ -59,8 +54,6 @@ namespace TraysPlus
                 else if (Require(proposal.Destination, out CToolUser toolUser))
                 {
                     
-
-                    //KitchenTraysPlus.Mod.LogInfo("Destination: Tried " + proposal.ItemType + " <= Player");
 
                     if(Require(toolUser.CurrentTool, out CRestrictedToolStorage destination))
                     {
@@ -86,7 +79,6 @@ namespace TraysPlus
                 if (proposal.Status == ItemTransferStatus.Pruned)
                 {
                     proposal.PrunedBy = this;
-                    //KitchenTraysPlus.Mod.LogInfo("Pruned!");
                 }
 
                 SetComponent(entity, proposal);
