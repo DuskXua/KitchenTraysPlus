@@ -22,7 +22,7 @@ namespace KitchenTraysPlus
         // Mod Version must follow semver notation e.g. "1.2.3"
         public const string MOD_GUID = "Xua.PlateUp.TraysPlus";
         public const string MOD_NAME = "Trays Plus";
-        public const string MOD_VERSION = "0.2.2";
+        public const string MOD_VERSION = "0.2.3";
         public const string MOD_AUTHOR = "Dusk_Xua";
         public const string MOD_GAMEVERSION = ">=1.1.3";
         // Game version this mod is designed for in semver
@@ -53,6 +53,7 @@ namespace KitchenTraysPlus
 
             trayStand.Upgrades.Add(servingTrayStand);
             trayStand.Upgrades.Add(dishTubStand);
+
         }
 
         private void AddGameData()

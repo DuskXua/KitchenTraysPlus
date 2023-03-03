@@ -18,7 +18,8 @@ namespace TraysPlus
         public override List<IItemProperty> Properties => new(new IItemProperty[] {
             new CToolStorage{Capacity = 4},
             new CEquippableTool{CanHoldItems = false},
-            new CRestrictedToolStorage{ItemKey = "ServingTray"}
+            new CRestrictedToolStorage{ItemKey = "ServingTray"},
+            new CSlowPlayer{Factor = .8f}
         });
         public override void OnRegister(GameDataObject gameDataObject)
         {

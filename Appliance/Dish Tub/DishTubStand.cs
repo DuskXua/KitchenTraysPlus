@@ -17,6 +17,7 @@ namespace TraysPlus
         public override RarityTier RarityTier => RarityTier.Rare;
         public override bool IsPurchasable => false;
         public override bool IsPurchasableAsUpgrade => true;
+        public override PriceTier PriceTier => PriceTier.Expensive;
         public override List<Appliance.ApplianceProcesses> Processes => ((Appliance)GDOUtils.GetExistingGDO(KitchenLib.References.ApplianceReferences.Countertop)).Processes;
         public override ShoppingTags ShoppingTags => ShoppingTags.FrontOfHouse | ShoppingTags.Misc;
         public override List<(Locale, ApplianceInfo)> InfoList => new()
@@ -24,7 +25,9 @@ namespace TraysPlus
             (Locale.English, LocalisationUtils.CreateApplianceInfo(
                 "Dish Tub",
                 "Be a real Bus Boy with this.", 
-                new List<Appliance.Section>() { new Appliance.Section() { Title = "Tool - Dish Tub", Description = "Clear 5 plates at once!" } }, 
+                new List<Appliance.Section>() { 
+                    new Appliance.Section() { Title = "Tool - Dish Tub", Description = "Clear 5 plates at once!" },
+                    new Appliance.Section() { Title = "Cautious", Description = "Move a little slower." } }, 
                 new()))
         };
         

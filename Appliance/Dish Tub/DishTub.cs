@@ -15,10 +15,13 @@ namespace TraysPlus
         public override int BaseGameDataObjectID => ItemReferences.Tray;
         public override string UniqueNameID => "DishTub";
         public override GameObject Prefab => Mod.Bundle.LoadAsset<GameObject>("Dish_Tub");
+        
         public override List<IItemProperty> Properties => new(new IItemProperty[] {
             new CToolStorage{Capacity = 5},
             new CEquippableTool{CanHoldItems = false},
-            new CRestrictedToolStorage{ItemKey = "DishTub"}
+            new CRestrictedToolStorage{ItemKey = "DishTub"},
+            new CSlowPlayer{Factor = .8f}
+
         });
         public override void OnRegister(GameDataObject gameDataObject)
         {
@@ -26,8 +29,6 @@ namespace TraysPlus
 
             var materials = new Material[] { MaterialUtils.GetExistingMaterial("Metal Very Dark")};
             MaterialUtils.ApplyMaterial(Prefab, "Cube", materials);
-
-            Mod.LogInfo("Tub:" + materials[0].color);
 
             FieldInfo storage = ReflectionUtils.GetField<ItemVariableStorageView>("Storage");
             List<GameObject> storages = new()

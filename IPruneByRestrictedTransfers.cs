@@ -43,7 +43,7 @@ namespace TraysPlus
                 
 
 
-                if (Require(proposal.Source, out CRestrictedToolStorage source))
+                /*if (Require(proposal.Source, out CRestrictedToolStorage source))
                 {
                     string itemKey = source.ItemKey.ToString();
                     if (!RestrictedItemTransfers.IsAllowed(itemKey, proposal.ItemType))
@@ -51,7 +51,7 @@ namespace TraysPlus
                         proposal.Status = ItemTransferStatus.Pruned;
                     }
                 }
-                else if (Require(proposal.Destination, out CToolUser toolUser))
+                else */if (Require(proposal.Destination, out CToolUser toolUser))
                 {
                     
 
@@ -75,6 +75,7 @@ namespace TraysPlus
                         }
                     }
                 }
+
 
                 if (proposal.Status == ItemTransferStatus.Pruned)
                 {
