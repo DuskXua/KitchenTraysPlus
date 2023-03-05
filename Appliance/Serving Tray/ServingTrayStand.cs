@@ -7,7 +7,7 @@ using KitchenTraysPlus;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace TraysPlus
+namespace KitchenTraysPlus
 {
     internal class ServingTrayStand : ModAppliance
     {

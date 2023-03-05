@@ -3,7 +3,7 @@ using KitchenMods;
 using Unity.Collections;
 using Unity.Entities;
 
-namespace TraysPlus
+namespace KitchenTraysPlus
 {
     public struct CRestrictedToolStorage : IItemProperty, IComponentData
     {

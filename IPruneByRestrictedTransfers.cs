@@ -5,7 +5,7 @@ using Unity.Collections;
 using Unity.Entities;
 using UnityEngine;
 
-namespace TraysPlus
+namespace KitchenTraysPlus
 {
 
     [UpdateInGroup(typeof(ItemTransferEarlyPrune))]

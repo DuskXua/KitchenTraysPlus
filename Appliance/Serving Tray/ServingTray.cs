@@ -3,12 +3,12 @@ using KitchenData;
 using KitchenLib.Customs;
 using KitchenLib.References;
 using KitchenLib.Utils;
-using KitchenTraysPlus;
 using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 
-namespace TraysPlus
+namespace KitchenTraysPlus
+
 {
     internal class ServingTray : CustomItem
     {

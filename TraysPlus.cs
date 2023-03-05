@@ -8,7 +8,6 @@ using KitchenLib.Utils;
 using KitchenMods;
 using System.Linq;
 using System.Reflection;
-using TraysPlus;
 using UnityEngine;
 
 // Namespace should have "Kitchen" in the beginning

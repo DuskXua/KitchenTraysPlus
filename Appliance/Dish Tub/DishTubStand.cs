@@ -3,11 +3,10 @@ using ApplianceLib.Customs.GDO;
 using Kitchen;
 using KitchenData;
 using KitchenLib.Utils;
-using KitchenTraysPlus;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace TraysPlus
+namespace KitchenTraysPlus
 {
     internal class DishTubStand : ModAppliance
     {
