@@ -1,14 +1,14 @@
 ﻿using ApplianceLib.Api.Prefab;
-using ApplianceLib.Customs.GDO;
 using Kitchen;
 using KitchenData;
+using KitchenLib.Customs;
 using KitchenLib.Utils;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace KitchenTraysPlus
 {
-    internal class DishTubStand : ModAppliance
+    internal class DishTubStand : CustomAppliance
     {
 
         public override string UniqueNameID => "DishTubStand";
@@ -37,7 +37,7 @@ namespace KitchenTraysPlus
 
 
 
-        protected override void SetupPrefab(GameObject prefab)
+        public override void SetupPrefab(GameObject prefab)
         {
             var materials = new Material[] { MaterialUtils.GetExistingMaterial("Metal Very Dark") };
             MaterialUtils.ApplyMaterial(prefab, "HoldPoint/Dish_Tub/Cube", materials);

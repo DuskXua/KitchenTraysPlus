@@ -42,16 +42,7 @@ namespace KitchenTraysPlus
                 }
                 
 
-
-                /*if (Require(proposal.Source, out CRestrictedToolStorage source))
-                {
-                    string itemKey = source.ItemKey.ToString();
-                    if (!RestrictedItemTransfers.IsAllowed(itemKey, proposal.ItemType))
-                    {
-                        proposal.Status = ItemTransferStatus.Pruned;
-                    }
-                }
-                else */if (Require(proposal.Destination, out CToolUser toolUser))
+                if (Require(proposal.Destination, out CToolUser toolUser))
                 {
                     
 

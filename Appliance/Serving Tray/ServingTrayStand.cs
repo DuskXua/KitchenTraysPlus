@@ -2,14 +2,14 @@
 using ApplianceLib.Customs.GDO;
 using Kitchen;
 using KitchenData;
+using KitchenLib.Customs;
 using KitchenLib.Utils;
-using KitchenTraysPlus;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace KitchenTraysPlus
 {
-    internal class ServingTrayStand : ModAppliance
+    internal class ServingTrayStand : CustomAppliance
     {
         public override string UniqueNameID => "ServingTrayStand";
         public override GameObject Prefab => Mod.Bundle.LoadAsset<GameObject>("Serving_Tray_Counter");
@@ -35,7 +35,7 @@ namespace KitchenTraysPlus
         new Kitchen.CItemHolder{}
         });
 
-        protected override void SetupPrefab(GameObject prefab)
+        public override void SetupPrefab(GameObject prefab)
         {
             var materials = new Material[] { MaterialUtils.GetExistingMaterial("Danger Hob") };
             MaterialUtils.ApplyMaterial(prefab, "HoldPoint/Serving_Tray/Cylinder", materials);

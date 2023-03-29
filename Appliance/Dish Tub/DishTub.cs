@@ -22,9 +22,9 @@ namespace KitchenTraysPlus
             new CSlowPlayer{Factor = .8f}
 
         });
-        public override void OnRegister(GameDataObject gameDataObject)
+        public override void OnRegister(Item item)
         {
-            base.OnRegister(gameDataObject);
+            base.OnRegister(item);
 
             var materials = new Material[] { MaterialUtils.GetExistingMaterial("Metal Very Dark")};
             MaterialUtils.ApplyMaterial(Prefab, "Cube", materials);

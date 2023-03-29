@@ -21,9 +21,10 @@ namespace KitchenTraysPlus
             new CRestrictedToolStorage{ItemKey = "ServingTray"},
             new CSlowPlayer{Factor = .8f}
         });
-        public override void OnRegister(GameDataObject gameDataObject)
+
+        public override void OnRegister(Item item)
         {
-            base.OnRegister(gameDataObject);
+            base.OnRegister(item);
 
             var materials = new Material[1];
 
